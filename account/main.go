@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/nustvondev/vjetmemorize/handler"
 )
 
 func main() {
@@ -17,12 +18,14 @@ func main() {
 
 	router := gin.Default()
 
-	router.GET("/api/account", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"Hello": "Vjetgolang, Vjetnodejs",
-		})
+	// router.GET("/api/account", func(c *gin.Context) {
+	// 	c.JSON(http.StatusOK, gin.H{
+	// 		"Hello": "Vjetgolang, Vjetnodejs",
+	// 	})
+	// })
+	handler.NewHandler(&handler.Config{
+		R: router,
 	})
-
 	srv := &http.Server{
 		Addr:    ":8080",
 		Handler: router,
