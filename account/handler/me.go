@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/nustvondev/vjetmemorize/model"
-	"github.com/nustvondev/vjetmemorize/model/apperrors"
+	"github.com/nustvondev/vjetmemorize/account/model"
+	"github.com/nustvondev/vjetmemorize/account/model/apperrors"
 )
 
 // Me handler calls services for getting

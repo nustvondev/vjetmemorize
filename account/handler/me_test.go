@@ -11,9 +11,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"github.com/nustvondev/vjetmemorize/model"
-	"github.com/nustvondev/vjetmemorize/model/apperrors"
-	"github.com/nustvondev/vjetmemorize/model/mocks"
+	"github.com/nustvondev/vjetmemorize/account/model"
+	"github.com/nustvondev/vjetmemorize/account/model/apperrors"
+	"github.com/nustvondev/vjetmemorize/account/model/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -27,8 +27,8 @@ func TestMe(t *testing.T) {
 
 		mockUserResp := &model.User{
 			UID:   uid,
-			Email: "bob@bob.com",
-			Name:  "Bobby Bobson",
+			Email: "vjet@vjet.com",
+			Name:  "Vjet Golang",
 		}
 
 		mockUserService := new(mocks.MockUserService)
