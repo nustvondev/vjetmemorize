@@ -12,3 +12,8 @@ To run this code, you will need docker and docker-compose installed on your mach
 A summary of the architecture is depicted below [go_clean_arch](https://viblo.asia/p/clean-architecture-Ljy5VMYzlra).
 
 ![Application Architecture ](./goCleanArchitecture.png)
+
+
+## Install golang-migrate CLI
+
+Install golang-migrate CLI [here](https://github.com/golang-migrate/migrate/tree/master/cmd/migrate).
