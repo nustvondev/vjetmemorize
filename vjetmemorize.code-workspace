@@ -6,5 +6,8 @@
         {
             "path": "."
         }
-    ]
+    ],
+    "settings": {
+        "makefile.extensionOutputFolder": "./.vscode"
+    }
 }
