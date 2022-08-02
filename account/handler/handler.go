@@ -2,9 +2,12 @@ package handler
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/nustvondev/vjetmemorize/account/handler/middleware"
 	"github.com/nustvondev/vjetmemorize/account/model"
+	"github.com/nustvondev/vjetmemorize/account/model/apperrors"
 )
 
 // Handler struct holds required services for handler to function
@@ -16,11 +19,11 @@ type Handler struct {
 // Config will hold services that will eventually be injected into this
 // handler layer on handler initialization
 type Config struct {
-	R *gin.Engine
-	// US *model.UserService
-	UserService  model.UserService
-	TokenService model.TokenService
-	BaseURL      string
+	R               *gin.Engine
+	UserService     model.UserService
+	TokenService    model.TokenService
+	BaseURL         string
+	TimeoutDuration time.Duration
 }
 
 // NewHandler initializes the handler with required injected services along with http routes
@@ -36,6 +39,10 @@ func NewHandler(c *Config) {
 	// g := c.R.Group("/api/account")
 	g := c.R.Group(c.BaseURL)
 
+	if gin.Mode() != gin.TestMode {
+		g.Use(middleware.Timeout(c.TimeoutDuration, apperrors.NewServiceUnavailable()))
+	}
+
 	g.GET("/me", h.Me)
 	g.POST("/signup", h.Signup)
 	g.POST("/signin", h.Signin)
@@ -48,6 +55,7 @@ func NewHandler(c *Config) {
 
 // Signin handler
 func (h *Handler) Signin(c *gin.Context) {
+	time.Sleep(6 * time.Second) // to demonstrate a timeout
 	c.JSON(http.StatusOK, gin.H{
 		"hello": "it's signin",
 	})
