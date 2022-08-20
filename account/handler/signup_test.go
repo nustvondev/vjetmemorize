@@ -159,7 +159,7 @@ func TestSignup(t *testing.T) {
 
 	t.Run("Error returned from UserService", func(t *testing.T) {
 		u := &model.User{
-			Email:    "bob@bob.com",
+			Email:    "vjet@vjet.com",
 			Password: "avalidpassword",
 		}
 
@@ -197,7 +197,7 @@ func TestSignup(t *testing.T) {
 	})
 	t.Run("Successful Token Creation", func(t *testing.T) {
 		u := &model.User{
-			Email:    "bob@bob.com",
+			Email:    "vjet@vjet.com",
 			Password: "avalidpassword",
 		}
 
@@ -258,7 +258,7 @@ func TestSignup(t *testing.T) {
 
 	t.Run("Failed Token Creation", func(t *testing.T) {
 		u := &model.User{
-			Email:    "bob@bob.com",
+			Email:    "vjet@vjet.com",
 			Password: "avalidpassword",
 		}
 
