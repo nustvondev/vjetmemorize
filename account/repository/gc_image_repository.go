@@ -24,6 +24,18 @@ func NewImageRepository(gcClient *storage.Client, bucketName string) model.Image
 		BucketName: bucketName,
 	}
 }
+func (r *gcImageRepository) DeleteProfile(ctx context.Context, objName string) error {
+	bckt := r.Storage.Bucket(r.BucketName)
+
+	object := bckt.Object(objName)
+
+	if err := object.Delete(ctx); err != nil {
+		log.Printf("Failed to delete image object with ID: %s from GC Storage\n", objName)
+		return apperrors.NewInternal()
+	}
+
+	return nil
+}
 
 func (r *gcImageRepository) UpdateProfile(
 	ctx context.Context,

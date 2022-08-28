@@ -34,6 +34,38 @@ func NewUserService(c *USConfig) model.UserService {
 		ImageRepository: c.ImageRepository,
 	}
 }
+func (s *userService) ClearProfileImage(
+	ctx context.Context,
+	uid uuid.UUID,
+) error {
+	user, err := s.UserRepository.FindByID(ctx, uid)
+
+	if err != nil {
+		return err
+	}
+
+	if user.ImageURL == "" {
+		return nil
+	}
+
+	objName, err := objNameFromURL(user.ImageURL)
+	if err != nil {
+		return err
+	}
+
+	err = s.ImageRepository.DeleteProfile(ctx, objName)
+	if err != nil {
+		return err
+	}
+
+	_, err = s.UserRepository.UpdateImage(ctx, uid, "")
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 // Get retrieves a user based on their uuid
 func (s *userService) Get(ctx context.Context, uid uuid.UUID) (*model.User, error) {
