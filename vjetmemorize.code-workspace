@@ -9,8 +9,11 @@
             "path": "account-client"
         },
         {
-            "name": "memrizr",
+            "name": "vjetmemorize",
             "path": "."
         }
-    ]
+    ],
+    "settings": {
+        "css.validate": false
+    }
 }

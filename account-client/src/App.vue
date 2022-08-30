@@ -1,41 +1,32 @@
 <template>
-  <h1>Scaffolded App Works Well!</h1>
-  <h3 v-if="errorCode">Error code: {{ errorCode }}</h3>
-  <h3 v-if="errorMessage">{{ errorMessage }}</h3>
+  <div class="mx-8 my-8">
+    <Loader
+      v-if="isLoading"
+      :height="512"
+      class="animate-spin stroke-current text-blue-500 mx-auto"
+    />
+    <router-view v-else></router-view>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, onMounted } from 'vue';
+import Loader from './components/ui/Loader.vue';
+import { useAuth } from './store/auth';
 // Wrapping exported object in define component
 // gives us typing help! Woot!
 export default defineComponent({
   name: 'App',
+  components: {
+    Loader,
+  },
   setup() {
-    const errorCode = ref(null);
-    const errorMessage = ref(null);
-    onMounted(async () => {
-      const response = await fetch('/api/account/me', {
-        method: 'GET',
-      });
-      const body = await response.json();
-      errorCode.value = response.status;
-      errorMessage.value = body.error.message;
+    const { initializeUser, isLoading } = useAuth();
+    onMounted(() => {
+      initializeUser();
     });
     return {
-      errorCode,
-      errorMessage,
+      isLoading,
     };
   },
 });
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style> 
